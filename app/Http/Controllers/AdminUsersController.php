@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Role;
+use App\Photo;
 
 
 class AdminUsersController extends Controller
@@ -48,6 +49,8 @@ class AdminUsersController extends Controller
         //
         $request=$request;
 
+
+
         $this->validate($request,[
             'name'=>'required | min:3',
             'email' => [
@@ -68,11 +71,26 @@ class AdminUsersController extends Controller
 
         $user->name=$request->input('name');
         $user->email=$request->input('email');
-        $user->password=$request->input('password');
+        $user->password=bcrypt($request->input('password'));
         $user->is_active=$request->input('status');
         $user->role_id=$request->input('role');
-        if($request->input('picture')){
-            $user->photo_id=$request->input('picture');
+
+        if($file=$request->file('picture')){
+            $name=time().$file->getClientOriginalName();
+
+
+
+            $photo=new Photo();
+            $photo->file=$name;
+
+            if($photo->save()){
+                $file->move('images\profile_pictures',$name);
+
+                $user->photo_id=$photo->id;
+            }else{
+                return redirect(route('users.create'))->with('fail','Unable to save your image');
+            }
+
         }else{
             $user->photo_id=0;
         }
