@@ -31,7 +31,7 @@ class AdminUsersController extends Controller
     {
         //
           // $roles=Role::lists('name','id')->all();
-          $roles=Role::all();
+          $roles=Role::all()->sortByDesc('id');
 
           return view('admin.users.create',compact('roles'));
           // return view('admin.users.create',compact('roles'));
@@ -46,6 +46,8 @@ class AdminUsersController extends Controller
     public function store(Request $request)
     {
         //
+        $request=$request;
+
         $this->validate($request,[
             'name'=>'required | min:3',
             'email' => [
@@ -61,7 +63,7 @@ class AdminUsersController extends Controller
             'role'=>'required'
         ]);
 
-        //create user
+        // create user
         $user=new User();
 
         $user->name=$request->input('name');
@@ -69,11 +71,24 @@ class AdminUsersController extends Controller
         $user->password=$request->input('password');
         $user->is_active=$request->input('status');
         $user->role_id=$request->input('role');
+        if($request->input('picture')){
+            $user->photo_id=$request->input('picture');
+        }else{
+            $user->photo_id=0;
+        }
 
 
-         $user->save();
+        if($user->save()){
+            return redirect(route('users.index'))->with('success','User Added successfully');
+        }else{
+            return view('admin.users.create',compact('request'));
+        }
 
-         return redirect(route('users.index'))->with('success','User Added successfully');
+        // User::create($request->all());
+        // return redirect(route('users.index'))->with('success','User Added successfully');
+
+
+
 
 
     }

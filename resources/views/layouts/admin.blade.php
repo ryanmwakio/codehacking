@@ -259,7 +259,7 @@
             </div>
             <!-- /.container-fluid -->
             <hr>
-            <div class="bg-primary text-center p-4 text-white">
+            <div class="bg-primary text-center p-5 text-white">
                 <p>
                     copyright &copy; <script>
                         var now=new Date();
