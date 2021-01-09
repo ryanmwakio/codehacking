@@ -23,5 +23,15 @@ Route::get('/admin',function(){
     return view('admin.index');
 });
 
+
+
 Route::resource('admin/users','AdminUsersController');
+
+Route::get('/user/{id}/edit','AdminUsersController@edit');
+
+Route::post('/user/update/{id}','AdminUsersController@update');
+
+Route::get('/user/delete/{id}','AdminUsersController@destroy')->name('deleteUser');
+
+
 

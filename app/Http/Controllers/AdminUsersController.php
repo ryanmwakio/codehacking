@@ -19,7 +19,7 @@ class AdminUsersController extends Controller
     public function index()
     {
         //
-        $users=User::all();
+        $users=User::all()->sortByDesc('id');
         return view('admin.users.index',compact('users'));
     }
 
@@ -47,7 +47,6 @@ class AdminUsersController extends Controller
     public function store(Request $request)
     {
         //
-        $request=$request;
 
 
 
@@ -132,7 +131,11 @@ class AdminUsersController extends Controller
     public function edit($id)
     {
         //
-        return view('admin.users.edit');
+        $roles=Role::all()->sortByDesc('id');
+
+        $user=User::find($id);
+
+        return view('admin.users.edit',compact('roles'))->with('user',$user);
     }
 
     /**
@@ -145,6 +148,56 @@ class AdminUsersController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request,[
+            'name'=>'required | min:3',
+            'email' => [
+                'required','email:rfc',
+                function($attribute,$value,$fail){
+                    if(!filter_var($value,FILTER_VALIDATE_EMAIL)){
+                        $fail($attribute.' is invalid.');
+                    }
+                }
+            ],
+            'password'=>'required | min:8',
+            'status'=>'required',
+            'role'=>'required'
+        ]);
+
+        // create user
+        $user=User::find($id);
+
+        $user->name=$request->input('name');
+        $user->email=$request->input('email');
+        $user->password=bcrypt($request->input('password'));
+        $user->is_active=$request->input('status');
+        $user->role_id=$request->input('role');
+
+        if($file=$request->file('picture')){
+            $name=time().$file->getClientOriginalName();
+
+
+
+            $photo=new Photo();
+            $photo->file=$name;
+
+            if($photo->save()){
+                $file->move('images\profile_pictures',$name);
+
+                $user->photo_id=$photo->id;
+            }else{
+                return redirect(route('users.create'))->with('fail','Unable to save your image');
+            }
+
+        }else{
+            $user->photo_id=0;
+        }
+
+
+        if($user->update()){
+            return redirect(route('users.index'))->with('success','User edited successfully');
+        }else{
+            return view('admin.users.edit');
+        }
     }
 
     /**
@@ -156,5 +209,8 @@ class AdminUsersController extends Controller
     public function destroy($id)
     {
         //
+        $user=User::find($id);
+
+        return $user;
     }
 }
