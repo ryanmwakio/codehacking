@@ -9,8 +9,9 @@
 
     <title>Codehacking</title>
 
-    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 
 
 
@@ -41,8 +42,16 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
+                        @if ( Auth::check())
+                        <a href="{{ route('welcome') }}" class="btn btn-outline-dark m-3">Landing Page</a>
+                       @endif
+
+                        @if ( Auth::check())
+                        <a href="{{ route('home') }}" class="btn btn-outline-dark m-3">Home Page</a>
+                       @endif
+
                         @if ( Auth::check() && Auth::user()->isAdmin())
-                         <a href="\admin" class="btn btn-outline-dark mr-3">Admin</a>
+                         <a href="\admin" class="btn btn-outline-dark m-3">Admin Page</a>
                         @endif
 
 
@@ -56,10 +65,20 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
+                        <li class="nav-item nav-link">
+                            @if (Auth::user()->photo_id==0 )
+                              <img src="{{ asset('images/profile_pictures/head_belize_hole.png') }}" alt="profile image" width="40px" class="img-circle">
+                            @else
+                             <img src="{{ Auth::user()->photo->file }}" alt="profile image" width="40px" class="img-circle">
+                            @endif
+
+                        </li>
+                            <li class="nav-item dropdown nav-link">
+
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
+
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
@@ -71,6 +90,9 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
+
+                                    <a href="{{ route('public.edit',Auth::user()->id) }}" class="dropdown-item bg-primary text-white mb-1">Edit Account</a>
+                                    <a href="{{ route('deletePublicUser',Auth::user()->id) }}" class="dropdown-item bg-danger text-white">Delete Account</a>
                                 </div>
                             </li>
                         @endguest
@@ -83,7 +105,7 @@
             @yield('content')
         </main>
 
-        <footer class="bg-light p-4 text-center border-top fixed-bottom">
+        <footer class="bg-light p-4 text-center border-top">
             <p>&copy;<script>
                 var now=new Date();
                 document.write(now.getFullYear());

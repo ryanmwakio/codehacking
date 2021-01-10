@@ -20,7 +20,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 
-
+//the routes a user can access if he is logged in and is admin and the status is active
 Route::group(['middleware'=>'admin'],function(){
 
 
@@ -37,6 +37,20 @@ Route::group(['middleware'=>'admin'],function(){
 
         Route::get('/user/delete/{id}','AdminUsersController@destroy')->name('deleteUser');
 
+
+});
+
+
+
+
+//the routes a user can access only if he is logged in
+Route::group(['middleware'=>'userloggedin'],function(){
+
+    Route::resource('users/public','PublicController');
+
+    Route::post('/user/public/update/{id}','PublicController@update');
+
+    Route::get('/user/public/delete/{id}','PublicController@destroy')->name('deletePublicUser');
 
 });
 

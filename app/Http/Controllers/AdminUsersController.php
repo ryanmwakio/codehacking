@@ -94,13 +94,20 @@ class AdminUsersController extends Controller
             $user->photo_id=0;
         }
 
+        $all_users=User::all();
+        foreach($all_users as $user1){
 
-        if($user->save()){
-            return redirect(route('users.index'))->with('success','User Added successfully');
-        }else{
-            return view('admin.users.create',compact('request'));
+            if($user1->name==$user->name){
+                return redirect(route('users.create'))->with('fail','username is already taken');
+            }elseif($user1->email==$user->email){
+                return redirect(route('users.create'))->with('fail','email is already taken');
+            }elseif($user->save()){
+                return redirect(route('users.index'))->with('success','User Added successfully');
+            }else{
+                return view('admin.users.create',compact('request'));
+            }
+
         }
-
         // User::create($request->all());
         // return redirect(route('users.index'))->with('success','User Added successfully');
 
@@ -172,6 +179,12 @@ class AdminUsersController extends Controller
         $user->is_active=$request->input('status');
         $user->role_id=$request->input('role');
 
+        if($user->photo_id!=0){
+            $delete_photo=unlink(public_path().$user->photo->file);
+            $photo=Photo::find($user->photo_id);
+            $photo->delete();
+            }
+
         if($file=$request->file('picture')){
             $name=time().$file->getClientOriginalName();
 
@@ -192,11 +205,18 @@ class AdminUsersController extends Controller
             $user->photo_id=0;
         }
 
+        $all_users=User::all();
+        foreach($all_users as $user1){
 
-        if($user->update()){
-            return redirect(route('users.index'))->with('success','User edited successfully');
-        }else{
-            return view('admin.users.edit');
+            if($user1->name==$user->name){
+                return redirect(route('users.edit',$id))->with('fail','username is already taken');
+            }elseif($user1->email==$user->email){
+                return redirect(route('users.edit',$id))->with('fail','email is already taken');
+            }elseif($user->update()){
+                return redirect(route('users.index'))->with('success','User edited successfully');
+            }else{
+                return view('users.edit',compact('request'));
+            }
         }
     }
 
@@ -213,6 +233,8 @@ class AdminUsersController extends Controller
 
         if($user->photo_id!=0){
         $delete_photo=unlink(public_path().$user->photo->file);
+        $photo=Photo::find($user->photo_id);
+        $photo->delete();
         }
 
 
