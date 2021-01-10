@@ -211,6 +211,14 @@ class AdminUsersController extends Controller
         //
         $user=User::find($id);
 
-        return $user;
+        if($user->photo_id!=0){
+        $delete_photo=unlink(public_path().$user->photo->file);
+        }
+
+
+        $user->delete();
+
+
+        return redirect(route('users.index'))->with('success','User deleted successfully');
     }
 }

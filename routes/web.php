@@ -11,27 +11,45 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','PagesController@welcome')->name('welcome');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/admin',function(){
-    return view('admin.index');
+
+
+
+
+Route::group(['middleware'=>'admin'],function(){
+
+
+        Route::get('/admin',function(){
+            return view('admin.index');
+        });
+
+
+        Route::resource('admin/users','AdminUsersController');
+
+        Route::get('/user/{id}/edit','AdminUsersController@edit');
+
+        Route::post('/user/update/{id}','AdminUsersController@update');
+
+        Route::get('/user/delete/{id}','AdminUsersController@destroy')->name('deleteUser');
+
+
 });
 
 
 
-Route::resource('admin/users','AdminUsersController');
 
-Route::get('/user/{id}/edit','AdminUsersController@edit');
 
-Route::post('/user/update/{id}','AdminUsersController@update');
 
-Route::get('/user/delete/{id}','AdminUsersController@destroy')->name('deleteUser');
+
+
+
+
+
 
 
 

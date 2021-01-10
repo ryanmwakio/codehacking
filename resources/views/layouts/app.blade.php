@@ -41,6 +41,11 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
+                        @if ( Auth::check() && Auth::user()->isAdmin())
+                         <a href="\admin" class="btn btn-outline-dark mr-3">Admin</a>
+                        @endif
+
+
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -77,6 +82,13 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <footer class="bg-light p-4 text-center border-top fixed-bottom">
+            <p>&copy;<script>
+                var now=new Date();
+                document.write(now.getFullYear());
+                </script> Ryan Mwakio</p>
+        </footer>
     </div>
 </body>
 </html>
