@@ -122,10 +122,10 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#posts"><i class="fa fa-desktop"></i> Posts <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="posts" class="collapse">
                             <li>
-                                <a href="#">All posts</a>
+                                <a href="{{ route('posts.index') }}">All posts</a>
                             </li>
                             <li>
-                                <a href="#">Create post</a>
+                                <a href="{{ route('posts.create') }}">Create post</a>
                             </li>
                         </ul>
                     </li>

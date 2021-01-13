@@ -38,6 +38,10 @@ Route::group(['middleware'=>'admin'],function(){
         Route::get('/user/delete/{id}','AdminUsersController@destroy')->name('deleteUser');
 
 
+
+        Route::resource('admin/posts','AdminPostsController');
+
+
 });
 
 
