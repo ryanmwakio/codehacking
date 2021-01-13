@@ -7,9 +7,9 @@
     <table class="table">
         <thead>
             <th>ID</th>
+            <th>PHOTO</th>
             <th>USER</th>
             <th>CATEGORYID</th>
-            <th>PHOTOID</th>
             <th>TITLE</th>
             <th>BODY</th>
             <th>CREATED AT</th>
@@ -21,9 +21,17 @@
                 @foreach ($posts as $post)
                 <tr>
                     <td>{{ $post->id }}</td>
+
+
+                    @if ($post->photo_id==0)
+                      <td><img src="{{ asset('images/profile_pictures/head_belize_hole.png') }}" alt="post picture" height="50px"></td>
+                    @else
+                      <td><img src="{{ $post->photo->file }}" height="50px" alt="post picture"></td>
+                    @endif
+
+
                     <td>{{ $post->user->name }}</td>
                     <td>{{ $post->category_id }}</td>
-                    <td>{{ $post->photo_id }}</td>
                     <td>{{ $post->title }}</td>
                     <td>{{ $post->body }}</td>
                     <td>{{ $post->created_at->diffForHumans()  }}</td>
