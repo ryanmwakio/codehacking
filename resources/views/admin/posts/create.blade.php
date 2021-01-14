@@ -14,9 +14,12 @@
     <div class="form-group">
         <label for="category">Category:</label>
         <select name="category" id="category" class="form-control input-sm">
-            <option value="1">Technology</option>
-            <option value="2">Travel</option>
-            <option value="">Sports</option>
+
+            @if ($categories)
+                @foreach ($categories as $category)
+                  <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            @endif
         </select>
     </div>
 

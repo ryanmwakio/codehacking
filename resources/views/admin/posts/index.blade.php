@@ -9,7 +9,7 @@
             <th>ID</th>
             <th>PHOTO</th>
             <th>USER</th>
-            <th>CATEGORYID</th>
+            <th>CATEGORY</th>
             <th>TITLE</th>
             <th>BODY</th>
             <th>CREATED AT</th>
@@ -31,7 +31,7 @@
 
 
                     <td>{{ $post->user->name }}</td>
-                    <td>{{ $post->category_id }}</td>
+                    <td>{{ $post->category->name }}</td>
                     <td>{{ $post->title }}</td>
                     <td>{{ $post->body }}</td>
                     <td>{{ $post->created_at->diffForHumans()  }}</td>
