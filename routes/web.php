@@ -41,6 +41,12 @@ Route::group(['middleware'=>'admin'],function(){
 
         Route::resource('admin/posts','AdminPostsController');
 
+        Route::get('/admin/posts/{id}/edit','AdminPostsController@edit');
+
+        Route::post('/admin/posts/update/{id}','AdminPostsController@update');
+
+        Route::get('/post/delete/{id}','AdminPostsController@destroy')->name('deletePost');
+
 
 });
 

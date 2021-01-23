@@ -101,8 +101,9 @@ class PublicController extends Controller
 
 
         if($user->photo_id!=0){
-            $delete_photo=unlink(public_path().$user->photo->file);
             $photo=Photo::find($user->photo_id);
+
+            $delete_photo=unlink(public_path().'/images/profile_pictures/'.$photo->file.'');
             $photo->delete();
             }
 
@@ -161,10 +162,10 @@ class PublicController extends Controller
         $user=User::find($id);
 
         if($user->photo_id!=0){
-        $delete_photo=unlink(public_path().$user->photo->file);
+            $photo=Photo::find($user->photo_id);
 
-        $photo=Photo::find($user->photo_id);
-        $photo->delete();
+            $delete_photo=unlink(public_path().'/images/profile_pictures/'.$photo->file.'');
+            $photo->delete();
         }
 
 

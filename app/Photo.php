@@ -9,12 +9,17 @@ class Photo extends Model
     //
 protected $fillable=['file'];
 
-protected $uploads='/images/profile_pictures/';
+protected $profilePicturePath='/images/profile_pictures/';
+protected $postPicturePath='/images/post_pictures/';
 
 protected $defaultPic='';
 
-public function getFileAttribute($photo){
-    return $this->uploads.$photo;
+public function getProfilePictureAttribute($photo){
+    return $this->profilePicturePath.$photo;
+}
+
+public function getPostPictureAttribute($photo){
+    return $this->postPicturePath.$photo;
 }
 
 

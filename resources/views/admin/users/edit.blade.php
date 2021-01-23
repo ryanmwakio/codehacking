@@ -20,7 +20,13 @@
             </div>
             @else
             <div class="text-center">
-                 <td><img src="{{ $user->photo->file }}" alt="profile picture" width="200px" class="img-circle"></td>
+                 {{-- <td><img src="{{ $user->photo->file }}" alt="profile picture" width="200px" class="img-circle"></td> --}}
+
+                    @foreach (App\Photo::all() as $photo)
+                        @if ($photo->id==$user->photo_id)
+                         <td><img src="{{ asset('images/profile_pictures/'.$photo->file.'') }}" alt="profile picture" width="200px" class="img-circle"></td>
+                        @endif
+                    @endforeach
             </div>
             @endif
             </div>

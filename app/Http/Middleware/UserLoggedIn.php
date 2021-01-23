@@ -16,7 +16,7 @@ class UserLoggedIn
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::check()){
+        if(Auth::check()){//checks that the user is logged in and ensures user is admin
             return $next($request);
         }else{
             redirect('/');

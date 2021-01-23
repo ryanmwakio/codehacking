@@ -24,9 +24,13 @@
 
 
                     @if ($post->photo_id==0)
-                      <td><img src="{{ asset('images/profile_pictures/head_belize_hole.png') }}" alt="post picture" height="50px"></td>
+                      <td><img src="{{ asset('images/profile_pictures/head_belize_hole.png') }}" alt="post picture" height="50px" class="img-rounded"></td>
                     @else
-                      <td><img src="{{ $post->photo->file }}" height="50px" alt="post picture"></td>
+                        @foreach ($photos as $photo)
+                            @if ($photo->id==$post->photo_id)
+                            <td><img src="{{ asset('images/post_pictures/'.$photo->file.'') }}" alt="profile picture" width="50px" class="img-rounded"></td>
+                            @endif
+                        @endforeach
                     @endif
 
 
@@ -36,6 +40,8 @@
                     <td>{{ $post->body }}</td>
                     <td>{{ $post->created_at->diffForHumans()  }}</td>
                     <td>{{ $post->updated_at->diffForHumans()  }}</td>
+                    <td><a href="/admin/posts/{{ $post->id }}/edit" class="btn btn-primary btn-sm">Edit</a></td>
+                    <td><a href="{{ route('deletePost',$post->id) }}" class="btn btn-danger btn-sm">Delete</a></td>
                 </tr>
                 @endforeach
             @endif

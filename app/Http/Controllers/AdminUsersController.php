@@ -20,7 +20,8 @@ class AdminUsersController extends Controller
     {
         //
         $users=User::all()->sortByDesc('id');
-        return view('admin.users.index',compact('users'));
+        $photos=Photo::all();
+        return view('admin.users.index',compact('users'))->with('photos',$photos);
     }
 
     /**
@@ -180,8 +181,9 @@ class AdminUsersController extends Controller
         $user->role_id=$request->input('role');
 
         if($user->photo_id!=0){
-            $delete_photo=unlink(public_path().$user->photo->file);
             $photo=Photo::find($user->photo_id);
+
+            $delete_photo=unlink(public_path().'/images/profile_pictures/'.$photo->file.'');
             $photo->delete();
             }
 
@@ -232,9 +234,10 @@ class AdminUsersController extends Controller
         $user=User::find($id);
 
         if($user->photo_id!=0){
-        $delete_photo=unlink(public_path().$user->photo->file);
-        $photo=Photo::find($user->photo_id);
-        $photo->delete();
+            $photo=Photo::find($user->photo_id);
+
+            $delete_photo=unlink(public_path().'/images/profile_pictures/'.$photo->file.'');
+            $photo->delete();
         }
 
 

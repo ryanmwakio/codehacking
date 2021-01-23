@@ -33,7 +33,12 @@
                         @if ($user->photo_id==0)
                             <td><img src="{{ asset('images/profile_pictures/head_belize_hole.png') }}" alt="profile picture" width="50px" class="img-circle"></td>
                         @else
-                             <td><img src="{{ $user->photo->file }}" alt="profile picture" width="50px" class="img-circle"></td>
+                            @foreach ($photos as $photo)
+                                @if ($photo->id==$user->photo_id)
+                                <td><img src="{{ asset('images/profile_pictures/'.$photo->file.'') }}" alt="profile picture" width="50px" class="img-circle"></td>
+                                @endif
+                            @endforeach
+
                         @endif
 
                         <td>{{ $user->name }}</td>

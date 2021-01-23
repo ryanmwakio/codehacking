@@ -69,7 +69,13 @@
                             @if (Auth::user()->photo_id==0 )
                               <img src="{{ asset('images/profile_pictures/head_belize_hole.png') }}" alt="profile image" width="40px" class="img-circle">
                             @else
-                             <img src="{{ Auth::user()->photo->file }}" alt="profile image" width="40px" class="img-circle">
+                             {{-- <img src="{{ Auth::user()->photo->file }}" alt="profile image" width="40px" class="img-circle"> --}}
+
+                              @foreach (App\Photo::all() as $photo)
+                                @if ($photo->id==Auth::user()->photo_id)
+                                 <td><img src="{{ asset('images/profile_pictures/'.$photo->file.'') }}" alt="profile picture" width="40px" class="img-circle"></td>
+                                @endif
+                              @endforeach
                             @endif
 
                         </li>
