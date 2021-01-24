@@ -136,10 +136,17 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#categories"><i class="fa fa-newspaper-o"></i> Categories <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="categories" class="collapse">
                             <li>
-                                <a href="#">All categories</a>
+                                <a href="{{ route('categories.index') }}">All categories</a>
                             </li>
+                        </ul>
+                    </li>
+
+
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#media"><i class="fa fa-cog"></i> Media <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="media" class="collapse">
                             <li>
-                                <a href="#">Create category</a>
+                                <a href="#">Images</a>
                             </li>
                         </ul>
                     </li>

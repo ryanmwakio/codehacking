@@ -29,6 +29,8 @@ Route::group(['middleware'=>'admin'],function(){
         });
 
 
+
+
         Route::resource('admin/users','AdminUsersController');
 
         Route::get('/user/{id}/edit','AdminUsersController@edit');
@@ -39,6 +41,7 @@ Route::group(['middleware'=>'admin'],function(){
 
 
 
+
         Route::resource('admin/posts','AdminPostsController');
 
         Route::get('/admin/posts/{id}/edit','AdminPostsController@edit');
@@ -46,6 +49,17 @@ Route::group(['middleware'=>'admin'],function(){
         Route::post('/admin/posts/update/{id}','AdminPostsController@update');
 
         Route::get('/post/delete/{id}','AdminPostsController@destroy')->name('deletePost');
+
+
+
+
+        Route::resource('admin/categories','AdminCategoriesController');
+
+        Route::get('categories/edit/{id}','AdminCategoriesController@edit')->name('editCategory');
+
+        Route::get('categories/delete/{id}','AdminCategoriesController@destroy')->name('deleteCategory');
+
+        Route::post('categories/update/{id}','AdminCategoriesController@update')->name('updateCategory');
 
 
 });
