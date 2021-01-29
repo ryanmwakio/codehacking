@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
+use App\Photo;
 use App\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -113,6 +115,8 @@ class AdminCategoriesController extends Controller
         $category_name=Str::upper($request->input('category'));
 
 
+
+
         foreach($categories as $category2){
             if($category2->name==$category_name){
                 return redirect(route('editCategory'))->with('fail','category already exists');
@@ -137,6 +141,7 @@ class AdminCategoriesController extends Controller
     public function destroy($id)
     {
         //
+
         $category=Category::find($id);
         $category->delete();
         return redirect(route('categories.index'))->with('success','category deleted successfully');

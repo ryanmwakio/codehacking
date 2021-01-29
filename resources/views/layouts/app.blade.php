@@ -7,11 +7,12 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Codehacking</title>
+    <title>Codehacking | Everything code</title>
 
 
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/clean-blog.css') }}" rel="stylesheet">
 
 
 
@@ -24,7 +25,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white purple-shadow">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Codehacking') }}
@@ -56,11 +57,11 @@
 
 
                         @guest
-                            <li class="nav-item">
+                            <li class="nav-item btn btn-outline-dark m-2">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
-                                <li class="nav-item">
+                                <li class="nav-item btn btn-outline-dark m-2">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
@@ -69,8 +70,6 @@
                             @if (Auth::user()->photo_id==0 )
                               <img src="{{ asset('images/profile_pictures/head_belize_hole.png') }}" alt="profile image" width="40px" class="img-circle">
                             @else
-                             {{-- <img src="{{ Auth::user()->photo->file }}" alt="profile image" width="40px" class="img-circle"> --}}
-
                               @foreach (App\Photo::all() as $photo)
                                 @if ($photo->id==Auth::user()->photo_id)
                                  <td><img src="{{ asset('images/profile_pictures/'.$photo->file.'') }}" alt="profile picture" width="40px" class="img-circle"></td>

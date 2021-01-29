@@ -78,6 +78,11 @@ Route::group(['middleware'=>'userloggedin'],function(){
 
 });
 
+//the routes the whole public can access
+Route::get('public/post/{id}', function ($id) {
+    return view('post',compact('id'));
+});
+
 
 
 

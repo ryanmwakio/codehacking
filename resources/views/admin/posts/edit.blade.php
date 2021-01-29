@@ -14,7 +14,7 @@
     <div class="form-group">
         <label for="category">Category:</label>
         <select name="category" id="category" class="form-control input-sm">
-        <option class="bg-dark" value="{{ $post->category_id }}">{{ $post->category->name }}</option>
+        <option class="bg-dark" value="{{ isset($post->category->name) ? $post->category_id : null }}">{{ isset($post->category->name) ? $post->category->name : 'not categorized' }}</option>
 
             @if ($categories)
                 @foreach ($categories as $category)
