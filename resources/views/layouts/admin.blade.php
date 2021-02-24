@@ -102,7 +102,7 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li>
-                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                        <a href="/admin"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
 
                     <li>
@@ -127,6 +127,9 @@
                             <li>
                                 <a href="{{ route('posts.create') }}">Create post</a>
                             </li>
+                            <li>
+                                <a href="admin/comments">All Comments</a>
+                            </li>
                         </ul>
                     </li>
 
@@ -142,14 +145,10 @@
                     </li>
 
 
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#media"><i class="fa fa-cog"></i> Media <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="media" class="collapse">
-                            <li>
-                                <a href="#">Images</a>
-                            </li>
-                        </ul>
-                    </li>
+
+
+
+
 
 
 
@@ -177,7 +176,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div>
-                         <h3>Admin Control Panel<h3><span><a href="\home" class="btn btn-primary btn-sm">Home</a></span>
+                         <h3>Admin Control Panel<h3><span><a href="\home" class="btn btn-primary btn-sm">Home</a><a class="btn btn-primary btn-sm ml-2" href="{{ route('welcome') }}">Landing page</a></span>
                         </div>
 
                         <hr>

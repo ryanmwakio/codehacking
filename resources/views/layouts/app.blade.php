@@ -48,7 +48,7 @@
                        @endif
 
                         @if ( Auth::check())
-                        <a href="{{ route('home') }}" class="btn btn-outline-dark m-3">Home Page</a>
+                        <a href="{{ route('home') }}" class="btn btn-outline-dark m-3">Profile Page</a>
                        @endif
 
                         @if ( Auth::check() && Auth::user()->isAdmin())

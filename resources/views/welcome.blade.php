@@ -105,14 +105,14 @@
                             @else
                                 @foreach (App\Photo::all() as $photo)
                                 @if ($photo->id==Auth::user()->photo_id)
-                                <td><img src="{{ asset('images/profile_pictures/'.$photo->file.'') }}" alt="profile picture" class="img-circle sidebar-img"></td>
+                                <td><a href="{{ route('home') }}"><img src="{{ asset('images/profile_pictures/'.$photo->file.'') }}" alt="profile picture" class="img-circle sidebar-img"></a></td>
                                 @endif
                                 @endforeach
                             @endif
                             <a href="{{ route('home') }}" class="m-2">&rarr;Go to profile</a>
                         </div>
                         <div class="col-6">
-                            <button class="btn">{{ Auth::user()->name }}</button>
+                            <button class="btn"><a href="{{ route('home') }}">{{ Auth::user()->name }}</a></button>
                         </div>
                    <hr>
               </div>
@@ -162,10 +162,10 @@
             <div class="post-component">
                 <div>
                     <h6>contact</h6>
-                    <a href="#" class="social-link">github</a>
-                    <a href="#" class="social-link">twitter</a>
-                    <a href="#" class="social-link">linked in</a>
-                    <a href="#" class="social-link">e-mail</a>
+                    <a href="https://github.com/ryanmwakio" class="social-link" target="_blank" rel="noreferrer noopener">github</a>
+                    <a href="https://twitter.com/ryanmwakio" class="social-link" target="_blank" rel="noreferrer noopener">twitter</a>
+                    <a href="https://www.linkedin.com/in/ryan-mwakio-7347a51ba/" class="social-link" target="_blank" rel="noreferrer noopener">linked in</a>
+                    <a href="mailto:ryanmwakio@yahoo.com" class="social-link">e-mail</a>
                 </div>
             </div>
 

@@ -11,11 +11,19 @@
 |
 */
 
+
+//the routes the whole public can access
 Route::get('/','PagesController@welcome')->name('welcome');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('public/post/{id}', 'PagesController@post')->name('post');
+
+Route::resource('admin/comments','PostCommentsController');
+
+Route::get('/delete/comment/{id}','PostCommentsController@destroy');
 
 
 
@@ -26,7 +34,7 @@ Route::group(['middleware'=>'admin'],function(){
 
         Route::get('/admin',function(){
             return view('admin.index');
-        });
+        })->name('adminIndex');
 
 
 
@@ -62,6 +70,13 @@ Route::group(['middleware'=>'admin'],function(){
         Route::post('categories/update/{id}','AdminCategoriesController@update')->name('updateCategory');
 
 
+
+
+
+
+        Route::resource('admin/comment/replies','CommentRepliesController');
+
+
 });
 
 
@@ -76,12 +91,10 @@ Route::group(['middleware'=>'userloggedin'],function(){
 
     Route::get('/user/public/delete/{id}','PublicController@destroy')->name('deletePublicUser');
 
+
 });
 
-//the routes the whole public can access
-Route::get('public/post/{id}', function ($id) {
-    return view('post',compact('id'));
-});
+
 
 
 
