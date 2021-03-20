@@ -3,7 +3,7 @@
 @section('content')
 
       <!-- Page Header -->
-  <header class="masthead" style="background-image: url('{{ asset('images/home-bg.jpg') }}')">
+  <header class="masthead hero" style="background-image: url('{{ asset('images/home-bg.jpg') }}')">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
@@ -29,7 +29,7 @@
       <div class="col-md-8 col-sm-12 mb-3">
 
 
-        @foreach (App\Post::all()->sortByDesc('id') as $post)
+        @foreach (App\Post::orderBy('id','desc')->paginate(2) as $post)
          <div class="post-component">
             <div class="post-preview">
             <a href="public/post/{{ $post->id }}">
@@ -77,9 +77,8 @@
 
 
         <!-- Pager -->
-        <div class="col-md-6 col-sm-12">
-          <a class="btn btn-primary float-left" href="#">Previous Posts &rarr;</a>
-          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+        <div class="col-md-6 col-sm-12 my-3">
+            {{ App\Post::orderBy('id','desc')->paginate(2)->links() }}
         </div>
       </div>
 
